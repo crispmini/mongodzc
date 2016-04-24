@@ -68,21 +68,37 @@
     // create unit and send back all units after creation
     app.post('/api/units', function(req, res) {
 		var errFlag = 0;
-		if(req.body.faction == "")
+		var errMsg = "Failed for following reasons:"
+		if(req.body.faction == ""){
 			errFlag++;
-		if(req.body.name == "")
+			errMsg += "\nNo Faction";
+		}
+		if(req.body.name == ""){
 			errFlag++;
-		if(req.body.a < 1 || req.body.a > 10)
+			errMsg += "\nNo Name";
+		}
+		if(req.body.a < 1 || req.body.a > 10){
 			errFlag++;
-		if(req.body.mv < 0)
+			errMsg += "\na (Armor) must be between 1 and 10";
+		}
+		if(req.body.mv < 0){
 			errFlag++;
-		if(req.body.dp < 1)
+			errMsg += "\nmv (Movement) must be 0 or more";
+		}
+		if(req.body.dp < 1){
 			errFlag++;
-		if(req.body.pts < 0)
+			errMsg += "\ndp (Damage Points) must be 1 or more";
+		}
+		if(req.body.pts < 0){
 			errFlag++;
+			errMsg += "\npts (Points) must be 0 or more";
+		}
 		
-		
-		if(!(errFlag > 0)){
+		if(errFlag > 0){
+			res.type('text/plain');
+			res.send(errMsg);
+		}
+		else
         // create a unit, information comes from AJAX request from Angular
         Unit.create({
 			faction : req.body.faction,
@@ -107,7 +123,7 @@
                 res.json(units);
             });
         });
-		}
+		
     });
 
 	// edit a unit

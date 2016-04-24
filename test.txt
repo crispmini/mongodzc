@@ -1,0 +1,15 @@
+GET=================================
+https://serene-depths-48279.herokuapp.com/api/units
+https://serene-depths-48279.herokuapp.com/api/weapons
+https://serene-depths-48279.herokuapp.com/api/units/571d09c8909a779439b05bef
+
+POST======================================
+https://serene-depths-48279.herokuapp.com/api/units
+{"faction":"UCM", "name":"Rapier", "a":10, "mv":4, "dp":1, "pts":45}
+
+PUT=====================================
+https://serene-depths-48279.herokuapp.com/api/units/571d3a03b4cdb0030049d156
+{"faction":"UCM", "name":"Rapier", "a":11, "mv":4, "dp":1, "pts":45}
+
+DELETE===============================
+https://serene-depths-48279.herokuapp.com/api/units/571d3a03b4cdb0030049d156
