@@ -67,6 +67,22 @@
 
     // create unit and send back all units after creation
     app.post('/api/units', function(req, res) {
+		var errFlag = 0;
+		if(req.body.faction == "")
+			errFlag++;
+		if(req.body.name == "")
+			errFlag++;
+		if(req.body.a < 1 || req.body.a > 10)
+			errFlag++;
+		if(req.body.mv < 0)
+			errFlag++;
+		if(req.body.dp < 1)
+			errFlag++;
+		if(req.body.pts < 0)
+			errFlag++;
+		
+		
+		if(!(errFlag > 0)){
         // create a unit, information comes from AJAX request from Angular
         Unit.create({
 			faction : req.body.faction,
@@ -91,7 +107,7 @@
                 res.json(units);
             });
         });
-
+		}
     });
 
 	// edit a unit
