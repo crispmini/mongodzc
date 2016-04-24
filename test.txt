@@ -7,6 +7,16 @@ POST======================================
 https://serene-depths-48279.herokuapp.com/api/units
 {"faction":"UCM", "name":"Rapier", "a":10, "mv":4, "dp":1, "pts":45}
 
+POST=FAIL======================================
+https://serene-depths-48279.herokuapp.com/api/units
+{"faction":"", "name":"Rapier", "a":10, "mv":4, "dp":1, "pts":45}
+{"faction":"UCM", "name":"", "a":10, "mv":4, "dp":1, "pts":45}
+{"faction":"UCM", "name":"Rapier", "a":0, "mv":4, "dp":1, "pts":45}
+{"faction":"UCM", "name":"Rapier", "a":11, "mv":4, "dp":1, "pts":45}
+{"faction":"UCM", "name":"Rapier", "a":10, "mv":-1, "dp":1, "pts":45}
+{"faction":"UCM", "name":"Rapier", "a":10, "mv":4, "dp":0, "pts":45}
+{"faction":"UCM", "name":"Rapier", "a":10, "mv":4, "dp":1, "pts":-1}
+
 PUT=====================================
 https://serene-depths-48279.herokuapp.com/api/units/571d3a03b4cdb0030049d156
 {"faction":"UCM", "name":"Rapier", "a":11, "mv":4, "dp":1, "pts":45}

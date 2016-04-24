@@ -201,8 +201,8 @@ app.post('/api/weapons', function(req, res) {
     });
 
 app.put('/api/units/:unit_id/:weapon_id', function(req, res) {
-		Unit.update({_id : req.params.unit_id}, 
-					{ $push: {weapons : req.params.weapon_id}}
+		Unit.update({_id : req.body.unit_id}, 
+					{ $push: {weapons : req.body.weapon_id}}
 		, function(err, unit) {
 			if(err)
 				res.send(err);
