@@ -96,6 +96,7 @@
 		
 		if(errFlag > 0){
 			res.type('text/plain');
+			res.status(400);
 			res.send(errMsg);
 		}
 		else
