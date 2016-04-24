@@ -1,0 +1,122 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="mongodzc">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Mongo DZC</title>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="core.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL UNITS -->
+<body ng-controller="mainController">
+    <div>
+
+        <!-- HEADER AND UNIT COUNT -->
+        <div>
+            <h1>Chris Loomis CS496 Assignment 3 Part 2</h1>
+        </div>
+		
+		<span>{{ msg }}</span>
+		<!-- FORM TO CREATE UNITS -->
+		<div><h3>Unit Creation</h3>
+			<form>
+				<div>
+
+					<!-- BIND THIS VALUE TO formData.name IN ANGULAR -->
+					<input type="hidden" ng-model="formData._id">
+					Faction: <select name="faction" ng-model="formData.faction">
+						<option value="UCM">UCM</option>
+						<option value="Scourge">Scourge</option>
+						<option value="PHR">PHR</option>
+						<option value="Shaltari">Shaltari</option>
+						<option value="Resistance">Resistance</option>
+					</select>*  
+					Name: <input type="text" placeholder="Name" ng-model="formData.name">*  
+					Armor: <input type="number"  placeholder="Armor" ng-model="formData.a">*  
+					Movement: <input type="number"  placeholder="Movement" ng-model="formData.mv">*  
+					Counter Measures: <input type="text"  placeholder="Counter Measures" ng-model="formData.cm">
+					Damage Points: <input type="number"  placeholder="Damage Points" ng-model="formData.dp">*  
+					Points: <input type="number"  placeholder="Points" ng-model="formData.pts">* 
+					Type: <select name="type" ng-model="formData.type">
+						<option value="Vehicle">Vehicle</option>
+						<option value="Infantry">Infantry</option>
+						<option value="Aircraft">Aircraft</option>
+						<option value="Walker">Walker</option>
+						<option value="Skimmer">Skimmer</option>
+					</select>
+					Category: <input type="text"  placeholder="Category" ng-model="formData.category">
+					Coherency: <input type="text"  placeholder="Coherency" ng-model="formData.coh">
+					Special Rules: <input type="text"  placeholder="Special Rules" ng-model="formData.specrules">
+				</div>
+
+				<!-- createUnit() WILL CREATE NEW UNITS -->
+				<button type="submit" class="btn btn-primary btn-lg" ng-click="createUnit()" ng-hide="edit">Add Unit</button>
+				<button type="submit" class="btn btn-primary btn-lg" ng-click="updateUnit()" ng-show="edit">Update Unit</button>
+				<button type="submit" class="btn btn-primary btn-lg" ng-click="cancelEdit()" ng-show="edit">Cancel</button>
+			</form>
+		</div>
+		
+		<div><h3>Weapon Creation</h3>
+			<form>
+				<div>
+					Name: <input type="text" placeholder="Name" ng-model="formWeapon.name">*
+				</div>
+				<button type="submit" ng-click="createWeapon()">Create Weapon</button>
+			</form>
+		</div>
+
+        <!-- Unit LIST -->
+
+                <!-- LOOP OVER THE UNITS IN $scope.units -->
+				<table ng-hide="edit">
+						<tr>
+							<th>Faction</th>
+							<th>Name</th>
+							<th>A</th>
+							<th>Mv</th>
+							<th>CM</th>
+							<th>DP</th>
+							<th>Pts</th>
+							<th>Type</th>
+							<th>Category</th>
+							<th>S + C</th>
+							<th>Special Rules</th>
+							<th>Add Weapon</th>
+							<th></th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="unit in units">
+							<td>{{ unit.faction }}</td>
+							<td>{{ unit.name }}</td>
+							<td>{{ unit.a }}</td>
+							<td>{{ unit.mv }}</td>
+							<td>{{ unit.cm }}</td>
+							<td>{{ unit.dp }}</td>
+							<td>{{ unit.pts }}</td>
+							<td>{{ unit.type }}</td>
+							<td>{{ unit.category }}</td>
+							<td>{{ unit.coh }}</td>
+							<td>{{ unit.specrules }}</td>
+							<td><select ng-model="selectedWeapon" ng-options="weapon.name for weapon in weapons"></select>
+							<td><button ng-click="editUnit(unit._id)">Edit</button></td>
+							<td><button ng-click="deleteUnit(unit._id)">Delete</button></td>
+						</tr>
+						<tr ng-repeat="weapon in unit.weapons">
+							<td>{{ weapon.name }}</td>
+						</tr>
+					</table>
+
+		
+    </div>
+
+</body>
+</html>

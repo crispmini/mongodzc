@@ -1,0 +1,70 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="mongodzc">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Mongo DZC</title>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="core.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL UNITS -->
+<body ng-controller="mainController">
+    <div>
+
+        <!-- HEADER AND UNIT COUNT -->
+        <div>
+            <h1>Update <span>{{ units.name }}</span></h1>
+        </div>
+		
+		<!-- FORM TO CREATE UNITS -->
+        <div>
+            <div>
+                <form>
+                    <div>
+
+                        <!-- BIND THIS VALUE TO formData.name IN ANGULAR -->
+						<select name="faction" ng-model="formData.faction" ng-value="formData.faction">
+							<option value="UCM">UCM</option>
+							<option value="Scourge">Scourge</option>
+							<option value="PHR">PHR</option>
+							<option value="Shaltari">Shaltari</option>
+							<option value="Resistance">Resistance</option>
+						</select>
+                        <input type="text"  placeholder="Name" ng-model="formData.name" ng-value="formData.name">
+						<input type="number"  placeholder="Armor" ng-model="formData.a">
+						<input type="number"  placeholder="Movement" ng-model="formData.mv">
+						<input type="text"  placeholder="Counter Measures" ng-model="formData.cm">
+						<input type="number"  placeholder="Damage Points" ng-model="formData.dp">
+						<input type="number"  placeholder="Points" ng-model="formData.pts">
+						<select name="type" ng-model="formData.type">
+							<option value="Vehicle">Vehicle</option>
+							<option value="Infantry">Infantry</option>
+							<option value="Aircraft">Aircraft</option>
+							<option value="Walker">Walker</option>
+							<option value="Skimmer">Skimmer</option>
+						</select>
+						<input type="text"  placeholder="Category" ng-model="formData.category">
+						<input type="text"  placeholder="Coherency" ng-model="formData.coh">
+						<input type="text"  placeholder="Special Rules" ng-model="formData.specrules">
+                    </div>
+
+                    <!-- createUnit() WILL CREATE NEW UNITS -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="updateUnit()">Add Unit</button>
+                </form>
+            </div>
+        </div>
+
+        
+    </div>
+
+</body>
+</html>
