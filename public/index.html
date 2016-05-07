@@ -106,7 +106,11 @@
 							<td>{{ unit.category }}</td>
 							<td>{{ unit.coh }}</td>
 							<td>{{ unit.specrules }}</td>
-							<td><select ng-model="selectedWeapon" ng-options="weapon.name for weapon in weapons"></select>
+							<td>
+								<select ng-model="selectedWeapon">
+									<option ng-repeat="weapon in weapons" value={{weapon._id}}>{{weapon.name}}</option>
+								</select>
+							<button  ng-click="addWeapon(unit._id)">Add</button></td>
 							<td><button ng-click="editUnit(unit._id)">Edit</button></td>
 							<td><button ng-click="deleteUnit(unit._id)">Delete</button></td>
 						</tr>

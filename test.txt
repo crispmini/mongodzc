@@ -21,5 +21,9 @@ PUT=====================================
 https://serene-depths-48279.herokuapp.com/api/units/571d3a03b4cdb0030049d156
 {"faction":"UCM", "name":"Rapier", "a":11, "mv":4, "dp":1, "pts":45}
 
+PUT=FAIL===================================
+https://serene-depths-48279.herokuapp.com/api/units/571d3a03b4cdb0030049d156/weapon
+{"unit_id":"571d33e5f2f69bb4388a039b","weapon_id":"571cffb008d150141a183808"}
+
 DELETE===============================
 https://serene-depths-48279.herokuapp.com/api/units/571d3a03b4cdb0030049d156

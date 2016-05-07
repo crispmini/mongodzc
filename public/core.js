@@ -126,8 +126,8 @@ function mainController($scope, $http) {
             });
 	}
 	
-	$scope.addWeapon = function (id) {
-		$http.put('/api/units/' + id + '/' + $scope.selectedWeapon)
+	$scope.addWeapon = function (id) {console.log("core.js - id="+id+" weapon="+$scope.selectedWeapon);
+		$http.put('/api/units/' + id + '/weapon', {_id : id, weapons : $scope.selectedWeapon})
 			.success(function() {
 				$http.get('/api/units')
 				.success(function(data) {

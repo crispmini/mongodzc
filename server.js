@@ -32,7 +32,7 @@
 		category : String,
 		coh : String,
 		specrules : String,
-		weapons : [Number]
+		weapons : []
 	});
 
 	var Weapon = mongoose.model('Weapon', {
@@ -194,13 +194,14 @@ app.post('/api/weapons', function(req, res) {
             Unit.find(function(err, units) {
                 if (err)
                     res.send(err);
+				res.setHeader("Access-Control-Allow-Origin", "*");
                 res.json(units);
             });
         });
 
     });
 
-app.put('/api/units/:unit_id/weapon', function(req, res) {
+app.put('/api/units/:unit_id/weapon', function(req, res) {console.log("server.js - id="+req.body.unit_id+" weapon="+req.body.weapon_id);
 		Unit.update({_id : req.body.unit_id}, 
 					{ $push: {weapons : req.body.weapon_id}}
 		, function(err, unit) {
