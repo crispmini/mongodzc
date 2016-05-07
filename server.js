@@ -183,6 +183,7 @@
     });
 
 app.post('/api/weapons', function(req, res) {
+	res.setHeader("Access-Control-Allow-Origin", "*");
         // create a unit, information comes from AJAX request from Angular
         Weapon.create({
             name : req.body.name
