@@ -195,9 +195,6 @@
     });
 
 app.post('/api/weapons', function(req, res) {
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         // create a unit, information comes from AJAX request from Angular
         Weapon.create({
             name : req.body.name
@@ -209,13 +206,11 @@ app.post('/api/weapons', function(req, res) {
             Unit.find(function(err, units) {
                 if (err)
                     res.send(err);
-				res.setHeader("Access-Control-Allow-Origin", "*");
                 res.json(units);
             });
 			Weapon.find(function(err,weapons) {
 				if (err)
 					res.send(err);
-				res.setHeader("Access-Control-Allow-Origin", "*");
 				res.json(weapons);
 			})
         });
