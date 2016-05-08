@@ -40,7 +40,19 @@
 	});
 
 // routes ======================================================================
+	var allowCrossDomain = function(req, res, next) {
+		if ('OPTIONS' == req.method) {
+		  res.header('Access-Control-Allow-Origin', '*');
+		  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+		  res.header('Access-Control-Allow-Headers', 'Content-Type');
+		  res.send(200);
+		}
+		else {
+		  next();
+		}
+	};
 
+	app.use(allowCrossDomain);
     // api ---------------------------------------------------------------------
     // get all units
     app.get('/api/units', function(req, res) {
