@@ -72,7 +72,7 @@
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
-			res.setHeader("Access-Control-Allow-Origin", "*");
+			//res.setHeader("Access-Control-Allow-Origin", "*");
 			res.json(weapons);
 		});
 	});
