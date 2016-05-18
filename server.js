@@ -48,7 +48,7 @@
 		  res.send(200);
 		}
 		else {
-			res.header('Access-Control-Allow-Origin', '*');
+		  //res.header('Access-Control-Allow-Origin', '*');
 		  next();
 		}
 	};
