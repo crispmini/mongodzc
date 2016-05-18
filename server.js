@@ -40,7 +40,7 @@
 	});
 
 // routes ======================================================================
-	var allowCrossDomain = function(req, res, next) {
+/*	var allowCrossDomain = function(req, res, next) {
 		if ('OPTIONS' == req.method) {
 		  res.header('Access-Control-Allow-Origin', '*');
 		  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -52,7 +52,7 @@
 		}
 	};
 
-	app.use(allowCrossDomain);
+	app.use(allowCrossDomain);*/
     // api ---------------------------------------------------------------------
     // get all units
     app.get('/api/units', function(req, res) {
@@ -195,9 +195,9 @@
     });
 
 app.post('/api/weapons', function(req, res) {
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	//res.setHeader("Access-Control-Allow-Origin", "*");
+	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+	//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         // create a unit, information comes from AJAX request from Angular
         Weapon.create({
             name : req.body.name
