@@ -196,9 +196,9 @@
 
 app.post('/api/weapons', function(req, res) {
 	if ('OPTIONS' == req.method) {
-		  res.header('Access-Control-Allow-Origin', '*');
-		  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-		  res.header('Access-Control-Allow-Headers', 'Content-Type');
+		  res.setHeader('Access-Control-Allow-Origin', '*');
+		  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+		  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 		  res.send(200);
 		}
         // create a unit, information comes from AJAX request from Angular
