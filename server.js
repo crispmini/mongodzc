@@ -200,7 +200,7 @@ app.post('/api/weapons', function(req, res) {
 		"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
 		"Access-Control-Allow-Headers": "Content-Type"
 	});
-	res.send(200);
+	res.status(200).send();
         // create a unit, information comes from AJAX request from Angular
         Weapon.create({
             name : req.body.name
