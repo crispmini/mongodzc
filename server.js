@@ -60,7 +60,7 @@
 //app.use(cors());
 
 var corsOptions = {
-	origin: ['http://example.com']
+	origin : 'http://example.com'
 };
 
     // api ---------------------------------------------------------------------
@@ -78,7 +78,7 @@ var corsOptions = {
         });
     });
 
-	app.get('/api/weapons', cors('http://example.com'), function(req, res) {
+	app.get('/api/weapons', cors(corsOptions), function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
