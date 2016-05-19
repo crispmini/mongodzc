@@ -60,7 +60,9 @@
 //app.use(cors());
 
 var corsOptions = {
-	origin : 'http://example.com',
+	origin : 'http://localhost:8100/',
+	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+	allowedHeaders : 'Content-Type'
 };
 
     // api ---------------------------------------------------------------------
