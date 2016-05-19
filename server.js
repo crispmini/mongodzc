@@ -206,8 +206,8 @@ var corsOptions = {
         });
     });
 
-app.options('/api/weapons', cors());
-app.post('/api/weapons', cors(), function(req, res) {
+//app.options('/api/weapons', cors());
+app.post('/api/weapons', cors(corsOptions), function(req, res) {
 	//res.setHeader("Access-Control-Allow-Origin", "*");
 	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 	//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
