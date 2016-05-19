@@ -1,7 +1,10 @@
 {
   "name": "mongodzc",
   "version": "1.0.0",
-  "engines": {"node": "4.4.3", "npm": "2.15.1"},
+  "engines": {
+    "node": "4.4.3",
+    "npm": "2.15.1"
+  },
   "description": "Interactive DB of Dropzone Commander (DZC) units and weapons.",
   "main": "server.js",
   "scripts": {
@@ -11,10 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
     "express": "^4.13.4",
     "method-override": "^2.3.5",
     "mongoose": "^4.4.12",
     "morgan": "^1.7.0"
   }
-	
 }

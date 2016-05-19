@@ -40,7 +40,7 @@
 	});
 
 // routes ======================================================================
-	var allowCrossDomain = function(req, res, next) {
+/*	var allowCrossDomain = function(req, res, next) {
 		if ('OPTIONS' == req.method) {
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -53,7 +53,9 @@
 		}
 	};
 
-	app.use(allowCrossDomain);
+	app.use(allowCrossDomain);*/
+
+app.use(cors());
     // api ---------------------------------------------------------------------
     // get all units
     app.get('/api/units', function(req, res) {
