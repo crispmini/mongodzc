@@ -7,6 +7,7 @@
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+	var vary = require('vary');
 	var cors = require('cors');
 
 // configuration =================
@@ -58,7 +59,9 @@
 
 //app.use(cors());
 
-//var corsOptions = {origin: 'http://example.com'};
+var corsOptions = {
+	origin: 'http://example.com'
+};
 
     // api ---------------------------------------------------------------------
     // get all units
@@ -75,7 +78,7 @@
         });
     });
 
-	app.get('/api/weapons', cors(), function(req, res) {
+	app.get('/api/weapons', cors(corsOptions), function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
