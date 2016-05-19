@@ -64,7 +64,7 @@ var corsOptions = {
 	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
 	allowedHeaders : 'Content-Type'
 };
-app.options('/api/weapons', cors());
+
     // api ---------------------------------------------------------------------
     // get all units
     app.get('/api/units', cors(), function(req, res) {
@@ -206,7 +206,7 @@ app.options('/api/weapons', cors());
         });
     });
 
-
+app.options('/api/units', cors());
 app.post('/api/weapons', cors(corsOptions), function(req, res) {
 	//res.setHeader("Access-Control-Allow-Origin", "*");
 	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
