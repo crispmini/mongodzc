@@ -45,7 +45,7 @@
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
 		  res.set('Access-Control-Allow-Headers', 'Content-Type');
-		  res.status(200).send();
+		  res.status(200);
 		}
 		else {
 		  res.header('Access-Control-Allow-Origin', '*');
