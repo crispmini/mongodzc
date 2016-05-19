@@ -72,7 +72,7 @@
         });
     });
 
-	app.get('/api/weapons', cors(), function(req, res) {
+	app.get('/api/weapons', cors({origin:'http://localhost:8100/'}), function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
