@@ -58,9 +58,7 @@
 
 //app.use(cors());
 
-var corsOptions = {
-  origin: 'http://example.com'
-};
+var corsOptions = {origin: 'http://example.com'};
 
     // api ---------------------------------------------------------------------
     // get all units
