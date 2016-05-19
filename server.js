@@ -60,7 +60,7 @@
 //app.use(cors());
 
 var corsOptions = {
-	origin: 'http://example.com'
+	origin: ['http://example.com']
 };
 
     // api ---------------------------------------------------------------------
