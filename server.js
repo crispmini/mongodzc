@@ -56,7 +56,7 @@
 
 	app.use(allowCrossDomain);*/
 
-app.use(cors());
+//app.use(cors());
     // api ---------------------------------------------------------------------
     // get all units
     app.get('/api/units', function(req, res) {
@@ -72,7 +72,7 @@ app.use(cors());
         });
     });
 
-	app.get('/api/weapons', function(req, res) {
+	app.get('/api/weapons', cors(), function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
