@@ -64,7 +64,7 @@ var corsOptions = {
 
     // api ---------------------------------------------------------------------
     // get all units
-    app.get('/api/units', cors(corsOptions), function(req, res) {
+    app.get('/api/units', cors(), function(req, res) {
 
         // use mongoose to get all units in the database
         Unit.find(function(err, units) {
