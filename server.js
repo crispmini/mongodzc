@@ -64,7 +64,7 @@ var corsOptions = {
 
     // api ---------------------------------------------------------------------
     // get all units
-    app.get('/api/units', function(req, res) {
+    app.get('/api/units', cors(corsOptions), function(req, res) {
 
         // use mongoose to get all units in the database
         Unit.find(function(err, units) {
@@ -203,7 +203,8 @@ var corsOptions = {
         });
     });
 
-app.post('/api/weapons', cors(corsOptions), function(req, res) {
+app.options('/api/weapons', cors());
+app.post('/api/weapons', cors(), function(req, res) {
 	//res.setHeader("Access-Control-Allow-Origin", "*");
 	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 	//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
