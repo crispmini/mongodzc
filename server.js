@@ -60,7 +60,7 @@
 //app.use(cors());
 
 var corsOptions = {
-	origin : '*',
+	origin : 'http://localhost:8100/',
 	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
 	allowedHeaders : 'Content-Type'
 };
