@@ -58,9 +58,12 @@
 	app.use(allowCrossDomain);*/
 
 //app.use(cors());
-
+var whitelist = ['http://localhost:8100/', 'http://example2.com'];
 var corsOptions = {
-	origin : 'http://localhost:8100/',
+	origin : function(origin, callback){
+    			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    			callback(null, originIsWhitelisted);
+			},
 	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
 	allowedHeaders : 'Content-Type'
 };
