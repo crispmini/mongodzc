@@ -63,7 +63,7 @@ var corsOptionsDelegate = function(req, callback){
   var corsOptions;
   if(whitelist.indexOf(req.header('Origin')) !== -1){
     corsOptions = { origin: true, methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-	allowedHeaders : 'Content-Type' }; // reflect (enable) the requested origin in the CORS response 
+	allowedHeaders : 'Content-Type', preflightContinue }; // reflect (enable) the requested origin in the CORS response 
   }else{
     corsOptions = { origin: false }; // disable CORS for this request 
   }
@@ -221,7 +221,7 @@ var corsOptions = {
         });
     });
 
-app.options('/api/weapons', cors());
+//app.options('/api/weapons', cors());
 app.post('/api/weapons', cors(corsOptionsDelegate), function(req, res) {
 	//res.setHeader("Access-Control-Allow-Origin", "*");
 	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
