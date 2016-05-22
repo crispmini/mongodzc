@@ -95,7 +95,7 @@ var corsOptions = {
         });
     });
 
-	app.get('/api/weapons', cors(corsOptions), function(req, res) {
+	app.get('/api/weapons', cors(corsOptionsDelegate), function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
