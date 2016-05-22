@@ -59,6 +59,16 @@
 
 //app.use(cors());
 var whitelist = ['http://localhost:8100/', 'http://example2.com'];
+var corsOptionsDelegate = function(req, callback){
+  var corsOptions;
+  if(whitelist.indexOf(req.header('Origin')) !== -1){
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response 
+  }else{
+    corsOptions = { origin: false }; // disable CORS for this request 
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options 
+};
+/*
 var corsOptions = {
 	origin : function(origin, callback){
     			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
@@ -66,7 +76,7 @@ var corsOptions = {
 			},
 	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
 	allowedHeaders : 'Content-Type'
-};
+};*/
 
     // api ---------------------------------------------------------------------
     // get all units
