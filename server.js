@@ -7,8 +7,8 @@
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
-	var vary = require('vary');
-	var cors = require('cors');
+	//var vary = require('vary');
+	//var cors = require('cors');
 
 // configuration =================
 
@@ -42,7 +42,7 @@
 	});
 
 // routes ======================================================================
-/*	var allowCrossDomain = function(req, res, next) {
+	var allowCrossDomain = function(req, res, next) {
 		if ('OPTIONS' == req.method) {
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -55,10 +55,10 @@
 		}
 	};
 
-	app.use(allowCrossDomain);*/
+	app.use(allowCrossDomain);
 
 //app.use(cors());
-var whitelist = ['http://localhost:8100/', 'http://example2.com'];
+/*var whitelist = ['http://localhost:8100/', 'http://example2.com'];
 var corsOptionsDelegate = function(req, callback){
   var corsOptions;
   if(whitelist.indexOf(req.header('Origin')) !== -1){
@@ -70,7 +70,7 @@ var corsOptionsDelegate = function(req, callback){
 	
   callback(null, corsOptions); // callback expects two parameters: error and options 
 };
-/*
+
 var corsOptions = {
 	origin : function(origin, callback){
     			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
@@ -99,7 +99,7 @@ var corsOptions = {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
-			//res.setHeader("Access-Control-Allow-Origin", "*");
+			res.setHeader("Access-Control-Allow-Origin", "*");
 			res.json(weapons);
 		});
 	});
@@ -223,9 +223,9 @@ var corsOptions = {
 
 //app.options('/api/weapons', cors());
 app.post('/api/weapons', cors(corsOptionsDelegate), function(req, res) {
-	//res.setHeader("Access-Control-Allow-Origin", "*");
-	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-	//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         // create a unit, information comes from AJAX request from Angular
         Weapon.create({
             name : req.body.name
@@ -237,7 +237,7 @@ app.post('/api/weapons', cors(corsOptionsDelegate), function(req, res) {
             Unit.find(function(err, units) {
                 if (err)
                     res.send(err);
-				//res.setHeader("Access-Control-Allow-Origin", "*");
+				res.setHeader("Access-Control-Allow-Origin", "*");
                 res.json(units);
             });
         });
