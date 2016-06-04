@@ -41,6 +41,11 @@
 		name : String
 	});
 
+	var User = mongoose.model('User', {
+		name : String,
+		pass : String
+	});
+
 // routes ======================================================================
 	app.use(function(req, res, next) {
 		  res.set('Access-Control-Allow-Origin', '*');
@@ -52,7 +57,28 @@
 
     // api ---------------------------------------------------------------------
     // get all units
-    app.get('/api/units', cors(), function(req, res) {
+	app.post('/authenticate', function(req,res) {
+		User.findOne({'name':req.body.name,'pass':req.body.pass}, function(err,data){
+			if(err)
+				res.send(err);
+			res.send(data);
+		})
+	})
+	
+	app.post('/signup', function(req,res) {
+		User.findOne({'name':req.body.name}, function(err,user){
+			if(err){
+				User.create({name:req.body.name,pass:req.body.pass},function(err,data){
+					if (err)
+						res.send(err);
+					res.send(data);
+					})
+			}
+			res.status(403);
+		})
+	})
+
+    app.get('/api/units', function(req, res) {
 
         // use mongoose to get all units in the database
         Unit.find(function(err, units) {
@@ -65,7 +91,7 @@
         });
     });
 
-	app.get('/api/weapons', cors(corsOptionsDelegate), function(req, res) {
+	app.get('/api/weapons', function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
@@ -191,8 +217,8 @@
         });
     });
 
-//app.options('/api/weapons', cors());
-app.post('/api/weapons', cors(corsOptionsDelegate), function(req, res) {
+//app.options('/api/weapons', cors()); cors(corsOptionsDelegate),
+app.post('/api/weapons', function(req, res) {
 	//res.setHeader("Access-Control-Allow-Origin", "*");
 	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 	//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
