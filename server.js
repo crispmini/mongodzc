@@ -52,7 +52,6 @@
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
 		  res.set('Access-Control-Allow-Headers', 'Content-Type');
 		  next();
-		}
 	});
 
     // api ---------------------------------------------------------------------
