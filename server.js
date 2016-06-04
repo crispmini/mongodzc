@@ -42,7 +42,7 @@
 	});
 
 // routes ======================================================================
-/*	var allowCrossDomain = function(req, res, next) {
+	var allowCrossDomain = function(req, res, next) {
 		if ('OPTIONS' == req.method) {
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -55,9 +55,9 @@
 		}
 	};
 
-	app.use(allowCrossDomain);*/
+	app.use(allowCrossDomain);
 
-//app.use(cors());
+/*app.use(cors());
 var whitelist = ['http://localhost:8100/', 'http://example2.com'];
 var corsOptionsDelegate = function(req, callback){
   var corsOptions;
@@ -70,7 +70,7 @@ var corsOptionsDelegate = function(req, callback){
 	
   callback(null, corsOptions); // callback expects two parameters: error and options 
 };
-/*
+
 var corsOptions = {
 	origin : function(origin, callback){
     			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
