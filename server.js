@@ -28,7 +28,9 @@
 		name : String
 	});
 
-	var User     = require('./models/User');
+	var User = mongoose.model('Weapon', {
+		name : String
+	});
 
 // routes ======================================================================
 	app.use(function(req, res, next) {
