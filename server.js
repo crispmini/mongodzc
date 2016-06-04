@@ -7,7 +7,6 @@
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
-	var jwt        = require("jsonwebtoken");
 	//var vary = require('vary');
 	//var cors = require('cors');
 
@@ -42,43 +41,43 @@
 		name : String
 	});
 
-	var User = mongoose.model('Weapon', {
-		name : String
+	var User = mongoose.model('User', {
+		name : String,
+		pass : String
 	});
 
 // routes ======================================================================
 	app.use(function(req, res, next) {
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-		  res.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+		  res.set('Access-Control-Allow-Headers', 'Content-Type');
 		  next();
+		}
 	});
-
-//app.use(cors());
-/*var whitelist = ['http://localhost:8100/', 'http://example2.com'];
-var corsOptionsDelegate = function(req, callback){
-  var corsOptions;
-  if(whitelist.indexOf(req.header('Origin')) !== -1){
-    corsOptions = { origin: true, methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-	allowedHeaders : 'Content-Type', preflightContinue }; // reflect (enable) the requested origin in the CORS response 
-  }else{
-    corsOptions = { origin: false }; // disable CORS for this request 
-  }
-	
-  callback(null, corsOptions); // callback expects two parameters: error and options 
-};
-
-var corsOptions = {
-	origin : function(origin, callback){
-    			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-    			callback(null, originIsWhitelisted);
-			},
-	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-	allowedHeaders : 'Content-Type'
-};*/
 
     // api ---------------------------------------------------------------------
     // get all units
+	app.post('/authenticate', function(req,res) {
+		User.findOne({'name':req.body.name,'pass':req.body.pass}, function(err,data){
+			if(err)
+				res.send(err);
+			res.send(data);
+		})
+	})
+	
+	app.post('/signup', function(req,res) {
+		User.findOne({'name':req.body.name}, function(err,user){
+			if(err){
+				User.create({name:req.body.name,pass:req.body.pass},function(err,data){
+					if (err)
+						res.send(err);
+					res.send(data);
+					})
+			}
+			res.status(403);
+		})
+	})
+
     app.get('/api/units', function(req, res) {
 
         // use mongoose to get all units in the database
@@ -91,7 +90,7 @@ var corsOptions = {
             res.json(units); // return all units in JSON format
         });
     });
-//cors(corsOptionsDelegate),
+
 	app.get('/api/weapons', function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
@@ -217,12 +216,11 @@ var corsOptions = {
             });
         });
     });
-//cors(corsOptionsDelegate)
-//app.options('/api/weapons', cors());
+//app.options('/api/weapons', cors()); cors(corsOptionsDelegate),
 app.post('/api/weapons', function(req, res) {
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	//res.setHeader("Access-Control-Allow-Origin", "*");
+	//res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+	//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         // create a unit, information comes from AJAX request from Angular
         Weapon.create({
             name : req.body.name
