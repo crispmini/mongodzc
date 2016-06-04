@@ -23,14 +23,26 @@
     app.use(methodOverride());
 
 // define model =================
+    var Unit = mongoose.model('Unit', {
+		faction : String,
+		name : String,
+		a : Number,
+		mv : Number,
+		cm : String,
+		dp : Number,
+		pts : Number,
+		type : String,
+		category : String,
+		coh : String,
+		specrules : String,
+		weapons : []
+	});
 
 	var Weapon = mongoose.model('Weapon', {
 		name : String
 	});
 
-	var User = mongoose.model('Weapon', {
-		name : String
-	});
+	var User     = require('./models/User');
 
 // routes ======================================================================
 	app.use(function(req, res, next) {
@@ -40,79 +52,45 @@
 		  next();
 	});
 
-function ensureAuthorized(req, res, next) {
-    var bearerToken;
-    var bearerHeader = req.headers["authorization"];
-    if (typeof bearerHeader !== 'undefined') {
-        var bearer = bearerHeader.split(" ");
-        bearerToken = bearer[1];
-        req.token = bearerToken;
-        next();
-    } else {
-        res.send(403);
-    }
-}
+//app.use(cors());
+/*var whitelist = ['http://localhost:8100/', 'http://example2.com'];
+var corsOptionsDelegate = function(req, callback){
+  var corsOptions;
+  if(whitelist.indexOf(req.header('Origin')) !== -1){
+    corsOptions = { origin: true, methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+	allowedHeaders : 'Content-Type', preflightContinue }; // reflect (enable) the requested origin in the CORS response 
+  }else{
+    corsOptions = { origin: false }; // disable CORS for this request 
+  }
+	
+  callback(null, corsOptions); // callback expects two parameters: error and options 
+};
+
+var corsOptions = {
+	origin : function(origin, callback){
+    			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    			callback(null, originIsWhitelisted);
+			},
+	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+	allowedHeaders : 'Content-Type'
+};*/
 
     // api ---------------------------------------------------------------------
     // get all units
-	app.post('/authenticate', function(req, res) {
-		User.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
-			if (err) {
-				res.json({
-					type: false,
-					data: "Error occured: " + err
-				});
-			} else {
-				if (user) {
-				   res.json({
-						type: true,
-						data: user,
-						token: user.token
-					}); 
-				} else {
-					res.json({
-						type: false,
-						data: "Incorrect email/password"
-					});    
-				}
-			}
-		});
-	});
+    app.get('/api/units', function(req, res) {
 
-	app.post('/signin', function(req, res) {
-		User.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
-			if (err) {
-				res.json({
-					type: false,
-					data: "Error occured: " + err
-				});
-			} else {
-				if (user) {
-					res.json({
-						type: false,
-						data: "User already exists!"
-					});
-				} else {
-					var userModel = new User();
-					userModel.email = req.body.email;
-					userModel.password = req.body.password;
-					userModel.save(function(err, user) {
-						user.token = jwt.sign(user, process.env.JWT_SECRET);
-						user.save(function(err, user1) {
-							res.json({
-								type: true,
-								data: user1,
-								token: user1.token
-							});
-						});
-					})
-				}
-			}
-		});
-	});
+        // use mongoose to get all units in the database
+        Unit.find(function(err, units) {
 
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err)
+                res.send(err);
+
+            res.json(units); // return all units in JSON format
+        });
+    });
 //cors(corsOptionsDelegate),
-	app.get('/api/weapons', ensureAuthorized, function(req, res) {
+	app.get('/api/weapons', function(req, res) {
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
@@ -121,8 +99,125 @@ function ensureAuthorized(req, res, next) {
 		});
 	});
 
+    // create unit and send back all units after creation
+    app.post('/api/units', function(req, res) {
+		var errFlag = 0;
+		var errMsg = "Failed for following reasons:"
+		if(req.body.faction == ""){
+			errFlag++;
+			errMsg += "\nNo Faction";
+		}
+		if(req.body.name == ""){
+			errFlag++;
+			errMsg += "\nNo Name";
+		}
+		if(req.body.a < 1 || req.body.a > 10){
+			errFlag++;
+			errMsg += "\na (Armor) must be between 1 and 10";
+		}
+		if(req.body.mv < 0){
+			errFlag++;
+			errMsg += "\nmv (Movement) must be 0 or more";
+		}
+		if(req.body.dp < 1){
+			errFlag++;
+			errMsg += "\ndp (Damage Points) must be 1 or more";
+		}
+		if(req.body.pts < 0){
+			errFlag++;
+			errMsg += "\npts (Points) must be 0 or more";
+		}
+		
+		if(errFlag > 0){
+			res.type('text/plain');
+			res.status(400);
+			res.send(errMsg);
+		}
+		else
+        // create a unit, information comes from AJAX request from Angular
+        Unit.create({
+			faction : req.body.faction,
+            name : req.body.name,
+			a : req.body.a,
+			mv : req.body.mv,
+			cm : req.body.cm,
+			dp : req.body.dp,
+			pts : req.body.pts,
+			type : req.body.type,
+			category : req.body.category,
+			coh : req.body.coh,
+			specrules : req.body.specrules
+        }, function(err, unit) {
+            if (err)
+                res.send(err);
+
+            // get and return all the units after you create another
+            Unit.find(function(err, units) {
+                if (err)
+                    res.send(err);
+                res.json(units);
+            });
+        });
+		
+    });
+
+	// edit a unit
+	app.get('/api/units/:unit_id', function(req, res) {
+		Unit.findOne({
+			_id : req.params.unit_id
+		}, function(err, unit) {
+			if (err)
+				res.send(err);
+			
+			res.json(unit);
+		});
+	});
+
+	app.put('/api/units/:unit_id', function(req, res) {
+		Unit.update({_id : req.params.unit_id}, { $set: {
+			faction : req.body.faction,
+            name : req.body.name,
+			a : req.body.a,
+			mv : req.body.mv,
+			cm : req.body.cm,
+			dp : req.body.dp,
+			pts : req.body.pts,
+			type : req.body.type,
+			category : req.body.category,
+			coh : req.body.coh,
+			specrules : req.body.specrules
+		}}, function(err, unit) {
+			if(err)
+				res.send(err);
+			
+			// get and return all the units after you create another
+            Unit.find(function(err, units) {
+                if (err)
+                    res.send(err);
+                res.json(units);
+            });
+		});
+	});
+
+    // delete a unit
+    app.delete('/api/units/:unit_id', function(req, res) {
+        Unit.remove({
+            _id : req.params.unit_id
+        }, function(err, unit) {
+            if (err)
+                res.send(err);
+
+            // get and return all the units after you create another
+            Unit.find(function(err, units) {
+                if (err)
+                    res.send(err);
+                res.json(units);
+            });
+        });
+    });
+//cors(corsOptionsDelegate)
 //app.options('/api/weapons', cors());
-app.post('/api/weapons', ensureAuthorized, function(req, res) {
+app.post('/api/weapons', function(req, res) {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -141,7 +236,24 @@ app.post('/api/weapons', ensureAuthorized, function(req, res) {
                 res.json(units);
             });
         });
+
     });
+
+app.put('/api/units/:unit_id/weapon', function(req, res) {console.log("server.js - id="+req.body.unit_id+" weapon="+req.body.weapon_id);
+		Unit.update({_id : req.body.unit_id}, 
+					{ $push: {weapons : req.body.weapon_id}}
+		, function(err, unit) {
+			if(err)
+				res.send(err);
+			
+			// get and return all the units after you create another
+            Unit.find(function(err, units) {
+                if (err)
+                    res.send(err);
+                res.json(units);
+            });
+		});
+	});
 
 
 // application -------------------------------------------------------------
@@ -149,9 +261,6 @@ app.post('/api/weapons', ensureAuthorized, function(req, res) {
         res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 
-	process.on('uncaughtException', function(err) {
-		console.log(err);
-	});
 // listen (start app with node server.js) ======================================
     app.listen(process.env.PORT || 8080);
     console.log("App listening on port 8080");
