@@ -7,8 +7,8 @@
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
-	var vary = require('vary');
-	var cors = require('cors');
+	//var vary = require('vary');
+	//var cors = require('cors');
 
 // configuration =================
 
@@ -42,43 +42,13 @@
 	});
 
 // routes ======================================================================
-/*	var allowCrossDomain = function(req, res, next) {
-		if ('OPTIONS' == req.method) {
+	app.use(function(req, res, next) {
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
 		  res.set('Access-Control-Allow-Headers', 'Content-Type');
-		  res.status(200).send();
-		}
-		else {
-		  res.header('Access-Control-Allow-Origin', '*');
 		  next();
 		}
-	};
-
-	app.use(allowCrossDomain);*/
-
-//app.use(cors());
-var whitelist = ['http://localhost:8100/', 'http://example2.com'];
-var corsOptionsDelegate = function(req, callback){
-  var corsOptions;
-  if(whitelist.indexOf(req.header('Origin')) !== -1){
-    corsOptions = { origin: true, methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-	allowedHeaders : 'Content-Type', preflightContinue }; // reflect (enable) the requested origin in the CORS response 
-  }else{
-    corsOptions = { origin: false }; // disable CORS for this request 
-  }
-	
-  callback(null, corsOptions); // callback expects two parameters: error and options 
-};
-/*
-var corsOptions = {
-	origin : function(origin, callback){
-    			var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-    			callback(null, originIsWhitelisted);
-			},
-	methods : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-	allowedHeaders : 'Content-Type'
-};*/
+	});
 
     // api ---------------------------------------------------------------------
     // get all units
