@@ -60,7 +60,8 @@
 		User.findOne({'name':req.body.name,'pass':req.body.pass}, function(err,data){
 			if(err)
 				res.send(err);
-			res.send(data);
+			res.setHeader("Access-Control-Allow-Origin", "*");
+			res.json(data);
 		})
 	});
 	
