@@ -75,14 +75,15 @@
 			res.send("Username already exists");
 			userExists++;
 		})
+		
 		if(userExists == 0){
 			User.create({
 				name : req.body.name,
 				pass : req.body.pass
-			}, function(err, user) {
+			}, function(err, token) {
 				if (err)
 					res.send(err);
-				res.json(user);
+				res.json(token);
 			});
 		}
 	})
