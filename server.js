@@ -65,16 +65,25 @@
 	})
 	
 	app.post('/signup', function(req,res) {
-		User.findOne({'name':req.body.name}, function(err,user){
+		if(User.findOne({'name':req.body.name}, function(err,user){
 			if(err){
-				User.create({name:req.body.name,pass:req.body.pass},function(err,data){
-					if (err)
-						res.send(err);
-					res.send(data);
-					})
+				res.send(err);
 			}
-			res.status(403);
-		})
+			res.type('text/plain');
+			res.status(400);
+			res.send("Username already exists");
+		}))
+		else
+			User.create({
+			name : req.body.name,
+			pass : req.body.pass
+        }, function(err, user) {
+            if (err)
+                res.send(err);
+			res.json(user);
+            });
+        });
+		
 	})
 
     app.get('/api/units', function(req, res) {
