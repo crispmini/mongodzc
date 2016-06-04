@@ -42,7 +42,7 @@
 	});
 
 // routes ======================================================================
-	var allowCrossDomain = function(req, res, next) {
+/*	var allowCrossDomain = function(req, res, next) {
 		if ('OPTIONS' == req.method) {
 		  res.set('Access-Control-Allow-Origin', '*');
 		  res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -55,10 +55,10 @@
 		}
 	};
 
-	app.use(allowCrossDomain);
+	app.use(allowCrossDomain);*/
 
-/*app.use(cors());
-var whitelist = ['http://localhost:8100/', 'http://example2.com'];
+app.use(cors());
+/*var whitelist = ['http://localhost:8100/', 'http://example2.com'];
 var corsOptionsDelegate = function(req, callback){
   var corsOptions;
   if(whitelist.indexOf(req.header('Origin')) !== -1){
