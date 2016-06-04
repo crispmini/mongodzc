@@ -62,32 +62,23 @@
 				res.send(err);
 			res.send(data);
 		})
-	})
+	});
 	
 	app.post('/signup', function(req,res) {
-		var userExists = 0;
-		User.findOne({'name':req.body.name}, function(err,user){
-			if(err){
-				res.send(err);
-			}
-			res.type('text/plain');
-			res.status(400);
-			res.send("Username already exists");
-			userExists++;
-		})
-		
-		if(userExists == 0){
 			User.create({
 				name : req.body.name,
 				pass : req.body.pass
-			}, function(err, token) {
+			}, function(err, user) {
 				if (err)
 					res.send(err);
-				res.setHeader("Access-Control-Allow-Origin", "*");
-				res.json(token);
+				User.findOne({'name':req.body.name,'pass':req.body.pass}, function(err,data){
+					if(err)
+						res.send(err);
+					res.setHeader("Access-Control-Allow-Origin", "*");
+					res.json(data);
+				});
 			});
-		}
-	})
+	});
 
     app.get('/api/units', function(req, res) {
 
