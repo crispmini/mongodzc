@@ -8,9 +8,9 @@
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 	//var vary = require('vary');
-	//var cors = require('cors');
+	//var cors = require('cors');   
 
-// configuration =================
+// configuration ==================
 
     mongoose.connect('mongodb://chrisloomis13:m1N!Crisp@ds011271.mlab.com:11271/dzc');     // connect to mongoDB database on modulus.io
 
