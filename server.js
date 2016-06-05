@@ -253,11 +253,17 @@ app.post('/api/weapons', function(req, res) {
     });
 
 app.post('/api/userweapons', function(req, res) {
-	User.findOne({'_id':{$oid:req.body.id}}, function(err,data){
+	User.findOne({'_id':req.body.id}, function(err,data){
 		if(err)
 			res.send(err);
 		//res.setHeader("Access-Control-Allow-Origin", "*");
-		res.json(data);
+		var weapons = [];
+		for(var i=0; i<data.wpns.length; i++){
+			Weapon.findOne({'_id':data.wpns[i]}, function(err,wname){
+				weapons.push(wname.name);
+			})
+		}
+		res.json({'userweapons':weapons});
 	})
 });
 
