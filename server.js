@@ -43,7 +43,8 @@
 
 	var User = mongoose.model('User', {
 		name : String,
-		pass : String
+		pass : String,
+		wpns : []
 	});
 
 // routes ======================================================================
