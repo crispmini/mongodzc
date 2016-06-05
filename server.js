@@ -246,7 +246,7 @@ app.post('/api/weapons', function(req, res) {
     });
 
 app.post('/api/userweapons', function(req, res) {
-	User.fineOne({'_id':{'$oid':req.body.id}}, function(err,data){
+	User.fineOne({'_id':{$oid:req.body.id}}, function(err,data){
 		if(err)
 			res.send(err);
 		res.setHeader("Access-Control-Allow-Origin", "*");
