@@ -230,7 +230,7 @@
         });
     });
 
-app.delete('/api/units/:w_id', function(req, res) {
+app.delete('/api/:w_id', function(req, res) {
         Weapon.remove({
             _id : req.params.w_id
         }, function(err, weapon) {
