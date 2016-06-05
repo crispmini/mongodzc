@@ -276,7 +276,7 @@ app.post('/api/userweapons', function(req, res) {
 		//res.setHeader("Access-Control-Allow-Origin", "*");
 		/*var weapons = [];
 		for(var i=0; i<data.wpns.length; i++){
-			Weapon.findOne({'_id':data.wpns[i]}, function(err,wname){
+			Weapon.findOne({'_id':data.wpns[i]}, function(err,wname){   
 				weapons.push(wname.name);
 			})
 		}*/
