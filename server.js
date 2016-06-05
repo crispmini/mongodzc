@@ -60,6 +60,8 @@
 	app.post('/authenticate', function(req,res) {
 		User.findOne({'name':req.body.name,'pass':req.body.pass}, function(err,data){
 			if(err)
+				res.send(err);
+			if(!data)
 				res.status(403).send();
 			res.setHeader("Access-Control-Allow-Origin", "*");
 			res.json(data);
