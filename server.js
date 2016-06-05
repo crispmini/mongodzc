@@ -108,7 +108,7 @@
 		Weapon.find(function(err, weapons) {
 			if (err)
 				res.send(err);
-			res.setHeader("Access-Control-Allow-Origin", "*");
+			//res.setHeader("Access-Control-Allow-Origin", "*");
 			res.json(weapons);
 		});
 	});
@@ -245,7 +245,7 @@ app.post('/api/weapons', function(req, res) {
             Unit.find(function(err, units) {
                 if (err)
                     res.send(err);
-				res.setHeader("Access-Control-Allow-Origin", "*");
+				//res.setHeader("Access-Control-Allow-Origin", "*");
                 res.json(units);
             });
         });
@@ -256,7 +256,7 @@ app.post('/api/userweapons', function(req, res) {
 	User.findOne({'_id':{$oid:req.body.id}}, function(err,data){
 		if(err)
 			res.send(err);
-		res.setHeader("Access-Control-Allow-Origin", "*");
+		//res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(data);
 	})
 });
@@ -265,7 +265,7 @@ app.put('/api/userweapons', function(req, res) {
 	User.findOneAndUpdate({'_id':{$oid:req.body.id}}, {$push: {'wpns':req.body.weapon}},function(err,data){
 		if(err)
 			res.send(err);
-		res.setHeader("Access-Control-Allow-Origin", "*");
+		//res.setHeader("Access-Control-Allow-Origin", "*");
 		res.json(data);
 	})
 });
