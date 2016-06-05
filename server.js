@@ -245,6 +245,17 @@ app.post('/api/weapons', function(req, res) {
 
     });
 
+app.post('/api/userweapons', function(req, res) {
+	User.fineOne({'_id':{'$oid':req.body.id}}, function(err,data){
+		if(err)
+			res.send(err);
+		if(!data)
+			res.status(403).send();
+		res.setHeader("Access-Control-Allow-Origin", "*");
+		res.json(data);
+	})
+});
+
 app.put('/api/units/:unit_id/weapon', function(req, res) {console.log("server.js - id="+req.body.unit_id+" weapon="+req.body.weapon_id);
 		Unit.update({_id : req.body.unit_id}, 
 					{ $push: {weapons : req.body.weapon_id}}
