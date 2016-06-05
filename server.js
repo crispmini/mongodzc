@@ -279,6 +279,18 @@ app.put('/api/userweapons', function(req, res) {
 	})
 });
 
+app.put('/api/removeuserweapon', function(req, res) {
+	User.findOneAndUpdate({'_id':req.body.id},
+						  {$pullAll: {'wpns':req.body.weapon}},
+						  {safe: true, upsert: true},
+						  function(err,data){
+							if(err)
+								res.send(err);
+		//res.setHeader("Access-Control-Allow-Origin", "*");
+		//res.json(data);
+	})
+});
+
 app.put('/api/units/:unit_id/weapon', function(req, res) {console.log("server.js - id="+req.body.unit_id+" weapon="+req.body.weapon_id);
 		Unit.update({_id : req.body.unit_id}, 
 					{ $push: {weapons : req.body.weapon_id}}
