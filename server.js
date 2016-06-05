@@ -229,6 +229,23 @@
             });
         });
     });
+
+app.delete('/api/units/:w_id', function(req, res) {
+        Weapon.remove({
+            _id : req.params.w_id
+        }, function(err, weapon) {
+            if (err)
+                res.send(err);
+
+            // get and return all the units after you create another
+            Weapon.find(function(err, weapons) {
+                if (err)
+                    res.send(err);
+                res.json(weapons);
+            });
+        });
+    });
+
 //app.options('/api/weapons', cors()); cors(corsOptionsDelegate)
 app.post('/api/weapons', function(req, res) {
 	//res.setHeader("Access-Control-Allow-Origin", "*");
