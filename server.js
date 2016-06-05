@@ -263,7 +263,7 @@ app.post('/api/userweapons', function(req, res) {
 				weapons.push(wname.name);
 			})
 		}*/
-		res.json(data);
+		res.json(data.wpns);
 	})
 });
 
