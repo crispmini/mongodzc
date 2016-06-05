@@ -257,13 +257,13 @@ app.post('/api/userweapons', function(req, res) {
 		if(err)
 			res.send(err);
 		//res.setHeader("Access-Control-Allow-Origin", "*");
-		var weapons = [];
+		/*var weapons = [];
 		for(var i=0; i<data.wpns.length; i++){
 			Weapon.findOne({'_id':data.wpns[i]}, function(err,wname){
 				weapons.push(wname.name);
 			})
-		}
-		res.json({'userweapons':weapons});
+		}*/
+		res.json(data);
 	})
 });
 
