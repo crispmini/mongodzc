@@ -100,7 +100,7 @@
             if (err)
                 res.send(err);
 
-            res.json(units); // return all units in JSON format
+            res.json(units); // return all units in JSON format;
         });
     });
 
