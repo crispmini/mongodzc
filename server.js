@@ -281,7 +281,7 @@ app.put('/api/userweapons', function(req, res) {
 
 app.put('/api/removeuserweapon', function(req, res) {
 	User.findOneAndUpdate({'_id':req.body.id},
-						  {$pullAll: {'wpns':req.body.weapon}},
+						  {$pull: {'wpns':req.body.weapon}},
 						  {safe: true, upsert: true},
 						  function(err,data){
 							if(err)
