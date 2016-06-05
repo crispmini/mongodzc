@@ -221,7 +221,7 @@
             if (err)
                 res.send(err);
 
-            // get and return all the units after you create another 
+            // get and return all the units after you create another
             Unit.find(function(err, units) {
                 if (err)
                     res.send(err);
