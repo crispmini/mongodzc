@@ -262,11 +262,14 @@ app.post('/api/userweapons', function(req, res) {
 });
 
 app.put('/api/userweapons', function(req, res) {
-	User.findOneAndUpdate({'_id':{$oid:req.body.id}}, {$push: {'wpns':req.body.weapon}},function(err,data){
-		if(err)
-			res.send(err);
+	User.findOneAndUpdate({'_id':{$oid:req.body.id}},
+						  {$push: {'wpns':req.body.weapon}},
+						  {safe: true, upsert: true},
+						  function(err,data){
+							if(err)
+								res.send(err);
 		//res.setHeader("Access-Control-Allow-Origin", "*");
-		res.json(data);
+		//res.json(data);
 	})
 });
 
