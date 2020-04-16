@@ -18,7 +18,7 @@
     "express": "^4.13.4",
 	"jsonwebtoken": "0.4.0",
     "method-override": "^2.3.5",
-    "mongoose": "^4.4.12",
+    "mongoose": "^5.9.9",
     "morgan": "^1.7.0",
     "vary": "^1.1.0"
   }
